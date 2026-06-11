@@ -177,14 +177,18 @@ class ChatbotVacaciones:
                 "RECHAZADA_SIN_SALDO"
             )
 
+            self.session_state.contexto = {}
+
             self.session_state.estado_conversacion = (
-                EstadoConversacion.FINALIZADO
+                EstadoConversacion.ESPERANDO_LEGAJO
             )
 
             return (
                 f"Solicitud rechazada.\n\n"
                 f"Días solicitados: {dias_solicitados}\n"
-                f"Días disponibles: {empleado['dias_disponibles']}"
+                f"Días disponibles: {empleado['dias_disponibles']}\n\n"
+                f"Saldo restante: {saldo_restante}\n\n"
+                "Para iniciar una nueva solicitud, ingresá otro número de legajo."
             )
 
         if dias_solicitados > 5:
@@ -226,7 +230,8 @@ class ChatbotVacaciones:
         return (
             f"Solicitud preaprobada automáticamente.\n\n"
             f"Días solicitados: {dias_solicitados}\n\n"
-            f"Saldo restante: {saldo_restante}"
+            f"Saldo restante: {saldo_restante}\n\n"
+            "Para iniciar una nueva solicitud, ingresá otro número de legajo."
         )
 
     def aprobar_solicitud(self):
@@ -237,7 +242,8 @@ class ChatbotVacaciones:
             EstadoConversacion.ESPERANDO_LEGAJO
         )
         return (
-            "El supervisor aprobó la solicitud."
+            "El supervisor aprobó la solicitud.\n\n"
+            "Para iniciar una nueva solicitud, ingresá otro número de legajo."
         )
 
     def rechazar_solicitud(self):
@@ -249,5 +255,6 @@ class ChatbotVacaciones:
         )
 
         return (
-            "El supervisor rechazó la solicitud."
+            "El supervisor rechazó la solicitud.\n\n"
+            "Para iniciar una nueva solicitud, ingresá otro número de legajo."
         )

@@ -1,4 +1,4 @@
-import json
+import csv
 from datetime import datetime
 from pathlib import Path
 from uuid import uuid4
@@ -6,28 +6,74 @@ from uuid import uuid4
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-ARCHIVO_EMPLEADOS = BASE_DIR / "data" / "employees.json"
-ARCHIVO_SOLICITUDES = BASE_DIR / "data" / "vacation_requests.json"
+ARCHIVO_EMPLEADOS = BASE_DIR / "data" / "empleados.csv"
+ARCHIVO_SOLICITUDES = BASE_DIR / "data" / "solicitudes_vacaciones.csv"
+
+
+CAMPOS_SOLICITUD = [
+    "id",
+    "legajo",
+    "empleado",
+    "sector",
+    "supervisor",
+    "fecha_inicio",
+    "fecha_fin",
+    "dias_solicitados",
+    "estado"
+]
 
 
 def cargar_empleados():
-    with open(ARCHIVO_EMPLEADOS, "r", encoding="utf-8") as archivo:
-        return json.load(archivo)
+    empleados = []
+
+    with open(
+        ARCHIVO_EMPLEADOS,
+        "r",
+        encoding="utf-8",
+        newline=""
+    ) as archivo:
+        lector = csv.DictReader(archivo)
+
+        for fila in lector:
+            fila["dias_disponibles"] = int(
+                fila["dias_disponibles"]
+            )
+            empleados.append(fila)
+
+    return empleados
 
 
 def cargar_solicitudes():
-    with open(ARCHIVO_SOLICITUDES, "r", encoding="utf-8") as archivo:
-        return json.load(archivo)
+    solicitudes = []
+
+    with open(
+        ARCHIVO_SOLICITUDES,
+        "r",
+        encoding="utf-8",
+        newline=""
+    ) as archivo:
+        lector = csv.DictReader(archivo)
+
+        for fila in lector:
+            solicitudes.append(fila)
+
+    return solicitudes
 
 
 def guardar_solicitudes(solicitudes):
-    with open(ARCHIVO_SOLICITUDES, "w", encoding="utf-8") as archivo:
-        json.dump(
-            solicitudes,
+    with open(
+        ARCHIVO_SOLICITUDES,
+        "w",
+        encoding="utf-8",
+        newline=""
+    ) as archivo:
+        escritor = csv.DictWriter(
             archivo,
-            indent=2,
-            ensure_ascii=False
+            fieldnames=CAMPOS_SOLICITUD
         )
+
+        escritor.writeheader()
+        escritor.writerows(solicitudes)
 
 
 def buscar_empleado_por_legajo(legajo):
@@ -84,7 +130,7 @@ def crear_solicitud_vacaciones(
         "supervisor": empleado["supervisor"],
         "fecha_inicio": fecha_inicio.strftime("%d/%m/%Y"),
         "fecha_fin": fecha_fin.strftime("%d/%m/%Y"),
-        "dias_solicitados": dias_solicitados,
+        "dias_solicitados": str(dias_solicitados),
         "estado": estado
     }
 

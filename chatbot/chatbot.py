@@ -7,7 +7,8 @@ from services.vacation_service import (
     convertir_fecha,
     calcular_dias_solicitados,
     tiene_saldo_suficiente,
-    crear_solicitud_vacaciones
+    crear_solicitud_vacaciones,
+    calcular_saldo_restante
 )
 
 
@@ -151,12 +152,17 @@ class ChatbotVacaciones:
             self.session_state.contexto["empleado"]
         )
 
-        dias_solicitados = (
-            calcular_dias_solicitados(
-                fecha_inicio,
-                fecha_fin
-            )
+        dias_solicitados = calcular_dias_solicitados(
+            fecha_inicio,
+            fecha_fin
         )
+
+        saldo_restante = calcular_saldo_restante(
+            empleado,
+            dias_solicitados
+        )
+
+        self.session_state.contexto["saldo_restante"] = saldo_restante
 
         if not tiene_saldo_suficiente(
             empleado,
@@ -217,7 +223,8 @@ class ChatbotVacaciones:
 
         return (
             f"Solicitud preaprobada automáticamente.\n\n"
-            f"Días solicitados: {dias_solicitados}"
+            f"Días solicitados: {dias_solicitados}\n\n"
+            f"Saldo restante: {saldo_restante}"
         )
 
     def aprobar_solicitud(self):

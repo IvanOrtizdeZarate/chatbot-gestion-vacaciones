@@ -139,3 +139,12 @@ def crear_solicitud_vacaciones(
     guardar_solicitudes(solicitudes)
 
     return nueva_solicitud
+
+def calcular_saldo_restante(
+    empleado,
+    dias_solicitados
+):
+    return (
+        empleado["dias_disponibles"]
+        - dias_solicitados
+    )

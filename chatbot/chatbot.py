@@ -217,8 +217,10 @@ class ChatbotVacaciones:
             "PREAPROBADA"
         )
 
+        self.session_state.contexto = {}
+
         self.session_state.estado_conversacion = (
-            EstadoConversacion.FINALIZADO
+            EstadoConversacion.ESPERANDO_LEGAJO
         )
 
         return (
@@ -229,18 +231,21 @@ class ChatbotVacaciones:
 
     def aprobar_solicitud(self):
 
-        self.session_state.estado_conversacion = (
-            EstadoConversacion.FINALIZADO
-        )
+        self.session_state.contexto = {}
 
+        self.session_state.estado_conversacion = (
+            EstadoConversacion.ESPERANDO_LEGAJO
+        )
         return (
             "El supervisor aprobó la solicitud."
         )
 
     def rechazar_solicitud(self):
 
+        self.session_state.contexto = {}
+
         self.session_state.estado_conversacion = (
-            EstadoConversacion.FINALIZADO
+            EstadoConversacion.ESPERANDO_LEGAJO
         )
 
         return (

@@ -64,6 +64,12 @@ class ChatbotVacaciones:
 
         legajo = mensaje_usuario.strip()
 
+        if not legajo.isdigit():
+            return (
+                "El legajo debe contener únicamente números.\n\n"
+                "Por favor ingresá un legajo válido."
+            )
+
         empleado = buscar_empleado_por_legajo(
             legajo
         )

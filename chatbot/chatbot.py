@@ -188,7 +188,6 @@ class ChatbotVacaciones:
                 f"Solicitud rechazada.\n\n"
                 f"Días solicitados: {dias_solicitados}\n"
                 f"Días disponibles: {empleado['dias_disponibles']}\n\n"
-                f"Saldo restante: {saldo_restante}\n\n"
                 "Para iniciar una nueva solicitud, ingresá otro número de legajo."
             )
 

@@ -148,3 +148,33 @@ def calcular_saldo_restante(
         empleado["dias_disponibles"]
         - dias_solicitados
     )
+
+def actualizar_dias_disponibles(legajo, nuevo_saldo):
+    empleados = cargar_empleados()
+
+    for empleado in empleados:
+        if empleado["legajo"] == legajo:
+            empleado["dias_disponibles"] = nuevo_saldo
+            break
+
+    with open(
+        ARCHIVO_EMPLEADOS,
+        "w",
+        encoding="utf-8",
+        newline=""
+    ) as archivo:
+        campos = [
+            "legajo",
+            "nombre",
+            "sector",
+            "supervisor",
+            "dias_disponibles"
+        ]
+
+        escritor = csv.DictWriter(
+            archivo,
+            fieldnames=campos
+        )
+
+        escritor.writeheader()
+        escritor.writerows(empleados)

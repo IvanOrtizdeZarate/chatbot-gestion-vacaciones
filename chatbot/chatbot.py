@@ -8,7 +8,8 @@ from services.vacation_service import (
     calcular_dias_solicitados,
     tiene_saldo_suficiente,
     crear_solicitud_vacaciones,
-    calcular_saldo_restante
+    calcular_saldo_restante,
+    actualizar_dias_disponibles
 )
 
 
@@ -221,6 +222,11 @@ class ChatbotVacaciones:
             "PREAPROBADA"
         )
 
+        actualizar_dias_disponibles(
+            empleado["legajo"],
+            saldo_restante
+        )
+
         self.session_state.contexto = {}
 
         self.session_state.estado_conversacion = (
@@ -236,11 +242,20 @@ class ChatbotVacaciones:
 
     def aprobar_solicitud(self):
 
+        empleado = self.session_state.contexto["empleado"]
+        saldo_restante = self.session_state.contexto["saldo_restante"]
+
+        actualizar_dias_disponibles(
+            empleado["legajo"],
+            saldo_restante
+        )
+
         self.session_state.contexto = {}
 
         self.session_state.estado_conversacion = (
             EstadoConversacion.ESPERANDO_LEGAJO
         )
+
         return (
             "El supervisor aprobó la solicitud.\n\n"
             "Para iniciar una nueva solicitud, ingresá otro número de legajo."

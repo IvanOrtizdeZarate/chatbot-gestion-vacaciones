@@ -1,3 +1,5 @@
+from datetime import date
+
 from chatbot.state_machine import EstadoConversacion
 
 from services.vacation_service import (
@@ -94,6 +96,14 @@ class ChatbotVacaciones:
             return (
                 "La fecha ingresada no es válida.\n\n"
                 "Utilizá el formato DD/MM/AAAA."
+            )
+
+        fecha_actual = date.today()
+
+        if fecha_inicio < fecha_actual:
+            return (
+                "La fecha de inicio no puede ser anterior a la fecha actual.\n\n"
+                "Ingresá una fecha válida."
             )
 
         self.session_state.contexto[

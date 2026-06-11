@@ -1,0 +1,23 @@
+[
+  {
+    "legajo": "1001",
+    "nombre": "Juan Pérez",
+    "sector": "Sistemas",
+    "supervisor": "María Gómez",
+    "dias_disponibles": 15
+  },
+  {
+    "legajo": "1002",
+    "nombre": "Ana López",
+    "sector": "Administración",
+    "supervisor": "Carlos Ruiz",
+    "dias_disponibles": 4
+  },
+  {
+    "legajo": "1003",
+    "nombre": "Lucía Fernández",
+    "sector": "Ventas",
+    "supervisor": "María Gómez",
+    "dias_disponibles": 8
+  }
+]

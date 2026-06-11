@@ -1,0 +1,13 @@
+[
+  {
+    "id": "b740758c-f857-4ab2-b455-e9180795c612",
+    "legajo": "1001",
+    "empleado": "Juan Pérez",
+    "sector": "Sistemas",
+    "supervisor": "María Gómez",
+    "fecha_inicio": "01/01/2001",
+    "fecha_fin": "01/01/2001",
+    "dias_solicitados": 1,
+    "estado": "PREAPROBADA"
+  }
+]
